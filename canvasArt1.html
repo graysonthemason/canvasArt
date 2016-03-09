@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+  <script type="application/javascript">
+    function draw() {
+      var canvas = document.getElementById("canvas");
+      if (canvas.getContext) {
+        var ctx = canvas.getContext("2d");
+      }
+      drawCircle(300, ctx, getRandomColor(), 1);
+    }
+    function drawCircle(size, ctx, color, angle) {
+      for(var x=0.0;x<=2;x+=.5) {
+        for (var i=0; i<=size/20; i+=.03){
+          ctx.beginPath();
+          ctx.strokeStyle=color;
+          ctx.lineWidth=.05;
+          ctx.arc(600,400,size+i,angle+i/(size/20)+(x*Math.PI),angle+i/(size/5)+(x*Math.PI),true);
+          ctx.stroke();
+        }
+      }
+      if (size-2>0) {
+        drawCircle(size -(size/20), ctx, getRandomColor(), angle+.05*Math.PI);
+      }
+    }
+    function getRandomColor() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+  </script>
+ </head>
+ <body onload="draw();">
+  <div id="container" style="width: 100%; text-align:center">
+   <canvas id="canvas" width="1200" height="800" style="margin:auto"></canvas>
+   </div>
+ </body>
+</html>
